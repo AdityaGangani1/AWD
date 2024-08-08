@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="angular.js"></script>
+    <script src="productcontroller.js"></script>
+    <Script src="../AWS/Module/prodmodule.js"></Script>
+</head>
+<body ng-app="prodapp">
+    <div ng-controller="prodctr">
+        <table border="2">
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Details</td>
+                <td>More Details</td>
+            </tr>
+            <tr ng-repeat="p in productlist track by $index">
+                <td>{{p.pid}}</td>
+                <td>{{p.pname}}</td>
+                <td>
+                    <button type="button" ng-click="stat=1">View Detail</button>
+                </td>
+                <td ng-if="stat==1">
+                    <img src="../Images/{{p.image}}" height="100" width="100"><br>
+                    price:{{p.price}}<br/>
+                    Quantity : <input type="number" ng-model="qty"><br/>
+                    <button type="button" ng-click="addtocart(p,qty)">Add to Cart</button>
+                    
+                </td>
+            </tr>
+        </table>
+        <h3>Cart</h3>
+        <ul>
+            <li ng-repeat="item in cart track by $index">
+                {{item.pname}} - Quantity: {{item.qty}} - Total Price: {{item.total}}
+            </li>
+        </ul>
+        <h4>Total Cart Value: {{getCartTotal()}}</h4>
+    </div>
+</body>
+</html>
